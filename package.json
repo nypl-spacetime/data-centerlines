@@ -1,0 +1,38 @@
+{
+  "name": "spacetime-data-centerlines",
+  "version": "0.0.1",
+  "description": "Convert NYPL Centerlines data to Histograph NDJSON",
+  "main": "building-inspector.js",
+  "devDependencies": {
+    "jscs": "^1.10.0",
+    "jshint": "^2.6.0",
+    "tape": "^3.4.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/nypl-spacetime/data-centerlines.git"
+  },
+  "scripts": {
+    "test": "jshint *.js && jscs *.js"
+  },
+  "author": "Bert Spaan",
+  "license": "MIT",
+  "dependencies": {
+    "JSONStream": "^1.0.7",
+    "highland": "^2.6.0",
+    "ramda": "^0.19.1"
+  },
+  "jshintConfig": {
+    "node": true,
+    "globalstrict": false,
+    "undef": true,
+    "unused": true,
+    "noarg": true
+  },
+  "jscsConfig": {
+    "preset": "airbnb",
+    "requireCamelCaseOrUpperCaseIdentifiers": null,
+    "disallowMultipleVarDecl": true,
+    "requireMultipleVarDecl": null
+  }
+}
