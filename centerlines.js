@@ -6,7 +6,10 @@ var H = require('highland');
 var R = require('ramda');
 var JSONStream = require('JSONStream');
 
-var filename = './centerlines.geojson';
+var files = [
+  'manhattan',
+  'brooklyn'
+];
 
 var writeObjects = function(writer, object, callback) {
   writer.writeObject(object, function(err) {
@@ -44,13 +47,17 @@ function convertFeatures(features) {
 }
 
 function convert(config, dir, writer, callback) {
-  var stream = fs.createReadStream(path.join(__dirname, filename))
-      .pipe(JSONStream.parse('features.*'));
+  var streams = files
+    .map(file => `./data/${file}.geojson`)
+    .map(filename => fs.createReadStream(path.join(__dirname, filename))
+      .pipe(JSONStream.parse('features.*')));
 
-  // Some streets have no street name:
-  //   337, 940, 1106, 1394, 2058, 2662, 2702
+  // Some streets have no street name...
+  //   For example, in Manhttan: 337, 940, 1106, 1394, 2058, 2662, 2702
 
-  H(stream)
+  H(streams)
+    .map(stream => H(stream))
+    .merge()
     .filter(streetName)
     .group(streetName)
     .toArray(function(groupsArray) {
@@ -71,9 +78,6 @@ function convert(config, dir, writer, callback) {
 }
 
 // ==================================== API ====================================
-
-module.exports.title = 'Centerlines';
-module.exports.url = 'https://github.com/nypl-spacetime/data-centerlines';
 
 module.exports.steps = [
   convert
