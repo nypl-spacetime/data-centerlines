@@ -1,6 +1,9 @@
 {
-  "name": "spacetime-data-centerlines",
-  "version": "0.0.1",
+  "name": "spacetime-etl-1854-street-centerlines",
+  "version": "1.0.0",
+
+"description": "Space/Time ETL module: converts NYC wards shapefiles to Space/Time NDJSON",
+
   "description": "Convert NYPL Centerlines data to Histograph NDJSON",
   "main": "building-inspector.js",
   "devDependencies": {

@@ -23,11 +23,11 @@ function convertFeatures (features) {
   var name = streetName(features[0])
 
   return {
-    type: 'pit',
+    type: 'object',
     obj: {
       id: id,
       name: name,
-      type: 'hg:Street',
+      type: 'st:Street',
       validSince: 1857,
       validUntil: 1862,
       geometry: {

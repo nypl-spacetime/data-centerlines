@@ -1,8 +1,8 @@
 {
   "id": "1854-street-centerlines",
   "title": "1854 Street Centerlines",
-  "license": "CC BY 3.0",
-  "description": "",
+  "license": "CC0",
+  "description": "New York City street centerlines, traces from 1854 fire insurance maps",
   "author": "Mauricio Giraldo",
   "website": "https://github.com/mgiraldo/centerlines",
   "editor": "Bert Spaan"
