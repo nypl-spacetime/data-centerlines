@@ -1,0 +1,9 @@
+{
+  "id": "nyc-streets",
+  "title": "NYC Street Centerlines",
+  "license": "CC0",
+  "description": "Manhattan and Brooklyn street centerlines, traced from New York City insurance atlases",
+  "author": "Mauricio Giraldo",
+  "website": "https://github.com/mgiraldo/centerlines",
+  "editor": "Bert Spaan"
+}
