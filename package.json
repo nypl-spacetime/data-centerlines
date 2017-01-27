@@ -18,8 +18,8 @@
   "author": "Bert Spaan",
   "license": "MIT",
   "dependencies": {
-    "JSONStream": "^1.0.7",
     "highland": "^2.6.0",
-    "ramda": "^0.19.1"
+    "ramda": "^0.19.1",
+    "shapefile": "^0.6.2"
   }
 }
