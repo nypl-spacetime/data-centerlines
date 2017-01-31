@@ -18,8 +18,10 @@
   "author": "Bert Spaan",
   "license": "MIT",
   "dependencies": {
+    "extract-zip": "^1.6.0",
     "highland": "^2.6.0",
     "ramda": "^0.19.1",
+    "request": "^2.79.0",
     "shapefile": "^0.6.2"
   }
 }

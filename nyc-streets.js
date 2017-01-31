@@ -1,18 +1,21 @@
 const fs = require('fs')
 const path = require('path')
+const request = require('request')
 const H = require('highland')
 const R = require('ramda')
 const shapefile = require('shapefile')
+const extract = require('extract-zip')
 
-const layers = require('./data/layers.json').layers
+const sourceUrl = 'https://github.com/nypl-spacetime/nyc-historical-streets/archive/master.zip'
+const extractDir = 'nyc-historical-streets-master'
 
-function getFeatures (layer, callback) {
+function getFeatures (dataDir, layer, callback) {
   const year = parseInt(layer.year)
   const layerId = String(layer.external_id)
 
   let features = []
 
-  shapefile.open(path.join(__dirname, 'data', layerId, `${layerId}.shp`))
+  shapefile.open(path.join(dataDir, layerId, `${layerId}.shp`))
     .then((source) => source.read()
       .then(function log (result) {
         if (result.done) {
@@ -74,10 +77,32 @@ function transformGroup (features) {
   }
 }
 
+function download (config, dirs, tools, callback) {
+  const zipPath = path.join(dirs.current, 'data.zip')
+
+  request(sourceUrl)
+    .pipe(fs.createWriteStream(zipPath))
+    .on('finish', () => {
+      extract(zipPath, {
+        dir: dirs.current
+      }, (err) => {
+        if (err) {
+          callback(err)
+          return
+        }
+
+        callback()
+      })
+    })
+}
+
 function transform (config, dirs, tools, callback) {
+  const dataDir = path.join(dirs.previous, extractDir)
+  const layers = require(path.join(dataDir, 'layers.json')).layers
+
   H(layers)
-    .filter((layer) => fs.existsSync(path.join(__dirname, 'data', String(layer.external_id))))
-    .map(H.curry(getFeatures))
+    .filter((layer) => fs.existsSync(path.join(dataDir, String(layer.external_id))))
+    .map(H.curry(getFeatures, dataDir))
     .nfcall([])
     .series()
     .flatten()
@@ -91,100 +116,12 @@ function transform (config, dirs, tools, callback) {
     .series()
     .stopOnError(callback)
     .done(callback)
-
-
-//       H(R.values(groups))
-//         .map(convertFeatures)
-//         .compact()
-//         .flatten()
-//         .map(H.curry(tools.writer.writeObject))
-//         .nfcall([])
-//         .series()
-//         .stopOnError(callback)
-//         .done(callback)
-
 }
 
 // ==================================== API ====================================
 
 module.exports.steps = [
+  download,
   transform
 ]
 
-
-
-// 'use strict'
-// var fs = require('fs')
-// var path = require('path')
-// var crypto = require('crypto')
-// var H = require('highland')
-// var R = require('ramda')
-// var JSONStream = require('JSONStream')
-
-// var files = [
-//   'manhattan',
-//   'brooklyn'
-// ]
-
-// function streetName (feature) {
-//   return feature.properties.streetname
-// }
-
-// function convertFeatures (features) {
-//   var ids = features.map(function (f) {
-//     return f.properties.id
-//   }).join(',')
-//   var id = crypto.createHash('md5').update(ids).digest('hex')
-//   var name = streetName(features[0])
-
-//   return {
-//     type: 'object',
-//     obj: {
-//       id: id,
-//       name: name,
-//       type: 'st:Street',
-//       validSince: 1857,
-//       validUntil: 1862,
-//       geometry: {
-//         type: 'MultiLineString',
-//         coordinates: features.map(function (f) {
-//           return f.geometry.coordinates
-//         })
-//       }
-//     }
-//   }
-// }
-
-// function transform (config, dirs, tools, callback) {
-//   var streams = files
-//     .map((file) => `./data/${file}.geojson`)
-//     .map((filename) => fs.createReadStream(path.join(__dirname, filename))
-//       .pipe(JSONStream.parse('features.*')))
-
-//   // Some streets have no street name...
-//       //   For example, in Manhttan: 337, 940, 1106, 1394, 2058, 2662, 2702
-
-//   H(streams)
-//     .map((stream) => H(stream))
-//     .merge()
-//     .filter(streetName)
-//     .group(streetName)
-//     .toArray((groupsArray) => {
-//       var groups = groupsArray[0]
-//       H(R.values(groups))
-//         .map(convertFeatures)
-//         .compact()
-//         .flatten()
-//         .map(H.curry(tools.writer.writeObject))
-//         .nfcall([])
-//         .series()
-//         .stopOnError(callback)
-//         .done(callback)
-//     })
-// }
-
-// // ==================================== API ====================================
-
-// module.exports.steps = [
-//   transform
-// ]

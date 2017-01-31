@@ -7,40 +7,41 @@
 <table>
   <tbody>
 
-    <tr>
-      <td>ID</td>
-      <td><code>nyc-streets</code></td>
-    </tr>
+  <tr>
+    <td>ID</td>
+    <td><code>nyc-streets</code></td>
+  </tr>
 
-    <tr>
-      <td>Title</td>
-      <td>NYC Street Centerlines</td>
-    </tr>
+  <tr>
+    <td>Title</td>
+    <td>NYC Street Centerlines</td>
+  </tr>
 
-    <tr>
-      <td>Description</td>
-      <td>Manhattan and Brooklyn street centerlines, traced from New York City insurance atlases</td>
-    </tr>
+  <tr>
+    <td>Description</td>
+    <td>Manhattan and Brooklyn street centerlines, traced from New York City insurance atlases</td>
+  </tr>
 
-    <tr>
-      <td>License</td>
-      <td>CC0</td>
-    </tr>
+  <tr>
+    <td>License</td>
+    <td>CC0</td>
+  </tr>
 
-    <tr>
-      <td>Author</td>
-      <td>Mauricio Giraldo</td>
-    </tr>
+  <tr>
+    <td>Author</td>
+    <td>Mauricio Giraldo</td>
+  </tr>
 
-    <tr>
-      <td>Website</td>
-      <td><a href="https://github.com/mgiraldo/centerlines">https://github.com/mgiraldo/centerlines</a></td>
-    </tr>
+  <tr>
+    <td>Website</td>
+    <td><a href="https://github.com/mgiraldo/centerlines">https://github.com/mgiraldo/centerlines</a></td>
+  </tr>
   </tbody>
 </table>
 
 ## Available steps
 
+  - `download`
   - `transform`
 
 ## Usage
