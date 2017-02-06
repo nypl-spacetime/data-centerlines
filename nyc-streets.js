@@ -42,24 +42,64 @@ function getFeatures (dataDir, layer, callback) {
 
 function layerIdAndName (feature) {
   if (!feature.properties.name) {
-    console.error(`Feature without name encountered in layer ${feature.properties.layerId}`)
-    return
+    // If feature has no name, group this feature in 'error' group
+    return 'error'
   }
 
   const name = feature.properties.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]+/g, '')
   return `${feature.properties.layerId}-${name}`
 }
 
-function transformGroup (features) {
+function transformGroup (group) {
+  let objects = []
 
-  const feature = features[0]
+  const id = group.group
+  const feature = group.features[0]
+
+  if (id === 'error') {
+    objects.push({
+      type: 'log',
+      obj: {
+        error: `Feature without name encountered in layer ${feature.properties.layerId}`
+      }
+    })
+
+    return objects
+  }
+
+  const getCoordinates = (feature) => feature.geometry && feature.geometry.coordinates
+
+  const noCoordinates = group.features
+    .filter((feature) => !getCoordinates(feature))
+
+  if (noCoordinates.length) {
+    objects.push({
+      type: 'log',
+      obj: {
+        error: `Feature without coordinates encountered in layer ${feature.properties.layerId}: ${feature.properties.name}`
+      }
+    })
+  }
+
   const name = feature.properties.name
   const year = feature.properties.year
 
-  return {
+  let geometry
+  if (group.features.length === 1) {
+    geometry = feature.geometry
+  } else {
+    geometry = {
+      type: 'MultiLineString',
+      coordinates: group.features
+        .filter(getCoordinates)
+        .map(getCoordinates)
+    }
+  }
+
+  objects.push({
     type: 'object',
     obj: {
-      id: layerIdAndName(feature),
+      id: id,
       name: name,
       type: 'st:Street',
       validSince: year,
@@ -67,14 +107,11 @@ function transformGroup (features) {
       data: {
         layerId: feature.properties.layerId
       },
-      geometry: {
-        type: 'MultiLineString',
-        coordinates: features.map(function (f) {
-          return f.geometry.coordinates
-        })
-      }
+      geometry
     }
-  }
+  })
+
+  return objects
 }
 
 function download (config, dirs, tools, callback) {
@@ -106,11 +143,16 @@ function transform (config, dirs, tools, callback) {
     .nfcall([])
     .series()
     .flatten()
-    .filter(layerIdAndName)
     .group(layerIdAndName)
-    .map(R.values)
+    .map((groups) => Object.keys(groups)
+      .map((group) => ({
+        group,
+        features: groups[group]
+      })
+    ))
     .sequence()
     .map(transformGroup)
+    .flatten()
     .map(H.curry(tools.writer.writeObject))
     .nfcall([])
     .series()
