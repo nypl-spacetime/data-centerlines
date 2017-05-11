@@ -5,6 +5,7 @@ const H = require('highland')
 const R = require('ramda')
 const shapefile = require('shapefile')
 const extract = require('extract-zip')
+const normalizer = require('@spacetime/nyc-street-normalizer')
 
 const sourceUrl = 'https://github.com/nypl-spacetime/nyc-historical-streets/archive/master.zip'
 const extractDir = 'nyc-historical-streets-master'
@@ -81,7 +82,6 @@ function transformGroup (group) {
     })
   }
 
-  const name = feature.properties.name
   const year = feature.properties.year
 
   let geometry
@@ -96,20 +96,57 @@ function transformGroup (group) {
     }
   }
 
+  let mainId = id
+  let mainName = feature.properties.name
+  const multiple = /(.*) \((.*)\)/.exec(mainName)
+
+  if (multiple) {
+    mainId = `${id}-1`
+    mainName = multiple[1]
+  }
+
   objects.push({
     type: 'object',
     obj: {
-      id: id,
-      name: name,
+      id: mainId,
+      name: normalizer(mainName),
       type: 'st:Street',
       validSince: year,
       validUntil: year,
       data: {
-        layerId: feature.properties.layerId
+        layerId: feature.properties.layerId,
+        originalName: mainName
       },
       geometry
     }
   })
+
+  if (multiple) {
+    secondId = `${id}-2`
+    secondName = multiple[2]
+
+    objects = [...objects, {
+      type: 'object',
+      obj: {
+        id: secondId,
+        name: normalizer(secondName),
+        type: 'st:Street',
+        validSince: year,
+        validUntil: year,
+        data: {
+          layerId: feature.properties.layerId,
+          originalName: secondName
+        }
+      }
+    }, {
+      type: 'relation',
+      obj: {
+        from: secondId,
+        to: mainId,
+        type: 'st:sameAs'
+      }
+    }]
+  }
 
   return objects
 }
