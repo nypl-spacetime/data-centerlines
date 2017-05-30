@@ -12,7 +12,7 @@ const extractDir = 'nyc-historical-streets-master'
 
 function getFeatures (dataDir, layer, callback) {
   const year = parseInt(layer.year)
-  const layerId = String(layer.external_id)
+  const layerId = String(layer.id)
 
   let features = []
 
@@ -172,10 +172,10 @@ function download (config, dirs, tools, callback) {
 
 function transform (config, dirs, tools, callback) {
   const dataDir = path.join(dirs.previous, extractDir)
-  const layers = require(path.join(dataDir, 'layers.json')).layers
+  const layers = require(path.join(dataDir, 'layers.json'))
 
   H(layers)
-    .filter((layer) => fs.existsSync(path.join(dataDir, String(layer.external_id))))
+    .filter((layer) => fs.existsSync(path.join(dataDir, String(layer.id))))
     .map(H.curry(getFeatures, dataDir))
     .nfcall([])
     .series()
