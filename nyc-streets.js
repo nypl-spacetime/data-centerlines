@@ -105,7 +105,9 @@ function transformGroup (group) {
     mainName = multiple[1]
   }
 
-  objects.push({
+  const layerId = feature.properties.layerId
+
+  objects = objects.concat([{
     type: 'object',
     obj: {
       id: mainId,
@@ -114,12 +116,19 @@ function transformGroup (group) {
       validSince: year,
       validUntil: year,
       data: {
-        layerId: feature.properties.layerId,
+        layerId,
         originalName: mainName
       },
       geometry
     }
-  })
+  }, {
+      type: 'relation',
+      obj: {
+        from: mainId,
+        to: `mapwarper/layer-${layerId}`,
+        type: 'st:in'
+      }
+  }])
 
   if (multiple) {
     secondId = `${id}-2`

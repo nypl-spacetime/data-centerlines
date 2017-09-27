@@ -1,6 +1,6 @@
 {
   "name": "spacetime-etl-nyc-streets",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Manhattan and Brooklyn street centerlines, traced from New York City insurance atlases",
   "main": "nyc-streets.js",
   "devDependencies": {
