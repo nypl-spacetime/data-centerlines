@@ -30,6 +30,7 @@ function getFeatures (dataDir, layer, callback) {
           type: 'Feature',
           properties: {
             name: feature.properties.name,
+            borough: layer.borough,
             year,
             layerId,
           },
@@ -117,6 +118,7 @@ function transformGroup (group) {
       validUntil: year,
       data: {
         layerId,
+        borough: feature.properties.borough,
         originalName: mainName
       },
       geometry
