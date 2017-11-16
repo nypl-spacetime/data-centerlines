@@ -1,9 +1,42 @@
 {
   "id": "nyc-streets",
-  "title": "NYC Street Centerlines",
+  "title": "NYC Historical Streets",
   "license": "CC0",
-  "description": "Manhattan and Brooklyn street centerlines, traced from New York City insurance atlases",
-  "author": "Mauricio Giraldo",
-  "website": "https://github.com/mgiraldo/centerlines",
-  "editor": "Bert Spaan"
+  "description": "Historical streets traced from New York City fire insurance atlases and other maps",
+  "sources": [{
+    "title": "Shapefiles with streets traced from a selection of Map Warper layers",
+    "path": "https://github.com/nypl-spacetime/nyc-historical-streets"
+  }],
+  "contributors": [{
+    "title": "Mauricio Giraldo",
+    "role": "author"
+  }, {
+    "title": "Bert Spaan",
+    "role": "author"
+  }],
+  "homepage": "https://github.com/nypl-spacetime/nyc-historical-streets",
+  "fields": {
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "layerId": {
+        "type": "string",
+        "description": "ID of Map Warper layer where street was traced from"
+      },
+      "borough": {
+        "type": "string",
+        "description": "Borough where street is located in"
+      },
+      "originalName": {
+        "type": "string",
+        "description": "Original name from Shapefile, before normalization"
+      }
+    },
+    "required": [
+      "layerId",
+      "borough",
+      "originalName"
+    ]
+  }
 }

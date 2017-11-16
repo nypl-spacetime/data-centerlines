@@ -145,6 +145,7 @@ function transformGroup (group) {
         validSince: year,
         validUntil: year,
         data: {
+          borough: feature.properties.borough,
           layerId: feature.properties.layerId,
           originalName: secondName
         }
