@@ -12,40 +12,40 @@ The dataset created by this ETL module’s `transform` step can be found in the 
 <table>
 <tbody>
 
-    <tr>
-    <td>ID</td>
-    <td><code>nyc-streets</code></td>
-    </tr>
+<tr>
+<td>ID</td>
+<td><code>nyc-streets</code></td>
+</tr>
 
-    <tr>
-    <td>Title</td>
-    <td>NYC Historical Streets</td>
-    </tr>
+<tr>
+<td>Title</td>
+<td>NYC Historical Streets</td>
+</tr>
 
-    <tr>
-    <td>Description</td>
-    <td>Historical streets traced from New York City fire insurance atlases and other maps</td>
-    </tr>
+<tr>
+<td>Description</td>
+<td>Historical streets traced from New York City fire insurance atlases and other maps</td>
+</tr>
 
-    <tr>
-    <td>License</td>
-    <td>CC0</td>
-    </tr>
+<tr>
+<td>License</td>
+<td>CC0</td>
+</tr>
 
-    <tr>
-    <td>Contributors</td>
-    <td>Mauricio Giraldo (author), Bert Spaan (wrangler)</td>
-    </tr>
+<tr>
+<td>Contributors</td>
+<td>Mauricio Giraldo (author), Bert Spaan (wrangler)</td>
+</tr>
 
-    <tr>
-    <td>Sources</td>
-    <td><a href="https://github.com/nypl-spacetime/nyc-historical-streets">Shapefiles with streets traced from a selection of Map Warper layers</a></td>
-    </tr>
+<tr>
+<td>Sources</td>
+<td><a href="https://github.com/nypl-spacetime/nyc-historical-streets">Shapefiles with streets traced from a selection of Map Warper layers</a></td>
+</tr>
 
-    <tr>
-    <td>Homepage</td>
-    <td><a href="https://github.com/nypl-spacetime/nyc-historical-streets">https://github.com/nypl-spacetime/nyc-historical-streets</a></td>
-    </tr>
+<tr>
+<td>Homepage</td>
+<td><a href="https://github.com/nypl-spacetime/nyc-historical-streets">https://github.com/nypl-spacetime/nyc-historical-streets</a></td>
+</tr>
 </tbody>
 </table>
 
