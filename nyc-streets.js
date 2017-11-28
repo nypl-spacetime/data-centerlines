@@ -2,7 +2,6 @@ const fs = require('fs')
 const path = require('path')
 const request = require('request')
 const H = require('highland')
-const R = require('ramda')
 const shapefile = require('shapefile')
 const extract = require('extract-zip')
 const normalizer = require('@spacetime/nyc-street-normalizer')
@@ -32,7 +31,7 @@ function getFeatures (dataDir, layer, callback) {
             name: feature.properties.name,
             borough: layer.borough,
             year,
-            layerId,
+            layerId
           },
           geometry: feature.geometry
         })
@@ -124,17 +123,17 @@ function transformGroup (group) {
       geometry
     }
   }, {
-      type: 'relation',
-      obj: {
-        from: mainId,
-        to: `mapwarper/layer-${layerId}`,
-        type: 'st:in'
-      }
+    type: 'relation',
+    obj: {
+      from: mainId,
+      to: `mapwarper/layer-${layerId}`,
+      type: 'st:in'
+    }
   }])
 
   if (multiple) {
-    secondId = `${id}-2`
-    secondName = multiple[2]
+    const secondId = `${id}-2`
+    const secondName = multiple[2]
 
     objects = [...objects, {
       type: 'object',

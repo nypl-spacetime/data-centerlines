@@ -1,6 +1,6 @@
 {
   "name": "spacetime-etl-nyc-streets",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Manhattan and Brooklyn street centerlines, traced from New York City insurance atlases",
   "main": "nyc-streets.js",
   "devDependencies": {
@@ -21,7 +21,6 @@
     "@spacetime/nyc-street-normalizer": "github:nypl-spacetime/nyc-street-normalizer",
     "extract-zip": "^1.6.0",
     "highland": "^2.6.0",
-    "ramda": "^0.19.1",
     "request": "^2.79.0",
     "shapefile": "^0.6.2"
   }

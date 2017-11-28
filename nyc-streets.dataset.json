@@ -3,19 +3,24 @@
   "title": "NYC Historical Streets",
   "license": "CC0",
   "description": "Historical streets traced from New York City fire insurance atlases and other maps",
-  "sources": [{
-    "title": "Shapefiles with streets traced from a selection of Map Warper layers",
-    "path": "https://github.com/nypl-spacetime/nyc-historical-streets"
-  }],
-  "contributors": [{
-    "title": "Mauricio Giraldo",
-    "role": "author"
-  }, {
-    "title": "Bert Spaan",
-    "role": "author"
-  }],
+  "sources": [
+    {
+      "title": "Shapefiles with streets traced from a selection of Map Warper layers",
+      "path": "https://github.com/nypl-spacetime/nyc-historical-streets"
+    }
+  ],
+  "contributors": [
+    {
+      "title": "Mauricio Giraldo",
+      "role": "author"
+    },
+    {
+      "title": "Bert Spaan",
+      "role": "wrangler"
+    }
+  ],
   "homepage": "https://github.com/nypl-spacetime/nyc-historical-streets",
-  "fields": {
+  "schema": {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
     "additionalProperties": false,
