@@ -34,7 +34,7 @@ The dataset created by this ETL module’s `transform` step can be found in the 
 
 <tr>
 <td>Contributors</td>
-<td><ul>Mauricio Giraldo (author)(item) => `<li>${item}</li>`Bert Spaan (wrangler)</ul></td>
+<td><ul><li>Mauricio Giraldo (author)</li><li>Bert Spaan (wrangler)</li></ul></td>
 </tr>
 
 <tr>
