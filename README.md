@@ -34,10 +34,8 @@ The dataset created by this ETL module’s `transform` step can be found in the 
 
     <tr>
     <td>Contributors</td>
-    <td><ul>
-<li>Mauricio Giraldo (author)</li>
-<li>Bert Spaan (wrangler)</li></ul>
-</td>
+    <td>Mauricio Giraldo (author)<br />
+Bert Spaan (wrangler)</td>
     </tr>
 
     <tr>
