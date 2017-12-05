@@ -43,5 +43,10 @@
       "borough",
       "originalName"
     ]
-  }
+  },
+  "flattenPaths": [
+    "$.data.layerId",
+    "$.data.borough",
+    "$.data.originalName"
+  ]
 }
